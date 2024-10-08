@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Initialize_Applications" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Initialize_Applications" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ucas="clr-namespace:UiPath.Core.Activities.SAP;assembly=UiPath.UiAutomation.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
@@ -53,6 +53,17 @@
       <x:String>System.Linq.Expressions</x:String>
       <x:String>System.Numerics</x:String>
       <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>UiPath.CV</x:String>
+      <x:String>UiPath.Shared.ObjectLibrary</x:String>
+      <x:String>UiPath.CV.Activities</x:String>
+      <x:String>UiPath.CV.Activities.Interfaces</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.ExtractData</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+      <x:String>UiPath.Shared.Activities.Business</x:String>
+      <x:String>UiPath.Core.Activities.SAP</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -115,9 +126,13 @@
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.ViewModels</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.CV.Activities</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="En esta secuencia se lanzara la pagina web para el comienzo de los items cargados previamente en la cola de trabajo verificando que exista el campo donde se anotara la url que direccionaran" DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="1637,2692" sap2010:WorkflowViewState.IdRef="Sequence_9">
+  <Sequence sap2010:Annotation.AnnotationText="En esta secuencia se lanzara la pagina web para el comienzo de los items cargados previamente en la cola de trabajo verificando que exista el campo donde se anotara la url que direccionaran" DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="1768,6794" sap2010:WorkflowViewState.IdRef="Sequence_9">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="TimeOut_M" />
     </Sequence.Variables>
@@ -127,10 +142,15 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log message (Initialize applications)" sap:VirtualizedContainerService.HintSize="700,173" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Opening applications...&quot;]" />
-    <TryCatch DisplayName="Intenta lanzar chrome" sap:VirtualizedContainerService.HintSize="700,2465" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <ui:LogMessage DisplayName="Log message (Initialize applications)" sap:VirtualizedContainerService.HintSize="1768,173" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Opening applications...&quot;]" />
+    <TryCatch DisplayName="Intenta lanzar chrome" sap:VirtualizedContainerService.HintSize="1768,6567" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Variables>
+        <Variable x:TypeArguments="ui:UiElement" Name="ElementoEncontrado" />
+        <Variable x:TypeArguments="x:Boolean" Name="ResultadoBusqueda" />
+        <Variable x:TypeArguments="x:String" Name="Moneda" />
+      </TryCatch.Variables>
       <TryCatch.Try>
-        <Sequence sap:VirtualizedContainerService.HintSize="662,2214" sap2010:WorkflowViewState.IdRef="Sequence_21">
+        <Sequence sap:VirtualizedContainerService.HintSize="1730,6316" sap2010:WorkflowViewState.IdRef="Sequence_21">
           <Sequence.Variables>
             <Variable x:TypeArguments="x:String" Name="URL_Principal" />
           </Sequence.Variables>
@@ -139,7 +159,7 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:MultipleAssign sap2010:Annotation.AnnotationText="Variables:&#xA;&#xA;TimeOut_M = Numero que se ingresara para los tiempos de espera del item" DisplayName="Asignacion de variables" sap:VirtualizedContainerService.HintSize="628,236" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+          <ui:MultipleAssign sap2010:Annotation.AnnotationText="Variables:&#xA;&#xA;TimeOut_M = Numero que se ingresara para los tiempos de espera del item" DisplayName="Asignacion de variables" sap:VirtualizedContainerService.HintSize="1696,236" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
             <ui:MultipleAssign.AssignOperations>
               <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
                 <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -166,85 +186,705 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </ui:MultipleAssign>
-          <uix:NApplicationCard sap2010:Annotation.AnnotationText="En esta instancia solamente se lanzara la aplicacion de google chrome ya que cada item posee su propia URL " AttachMode="ByInstance" DisplayName="Lanza Chrome" sap:VirtualizedContainerService.HintSize="628,1870" sap2010:WorkflowViewState.IdRef="NApplicationCard_3" InteractionMode="DebuggerApi" ScopeGuid="02a7493a-61f9-433b-b4aa-9072b7bef515" Version="V2" WindowResize="Maximize">
+          <uix:NApplicationCard sap2010:Annotation.AnnotationText="En esta instancia solamente se lanzara la aplicacion de google chrome ya que cada item posee su propia URL " AttachMode="ByInstance" DisplayName="Lanza Chrome" sap:VirtualizedContainerService.HintSize="1696,5972" sap2010:WorkflowViewState.IdRef="NApplicationCard_3" InteractionMode="DebuggerApi" ScopeGuid="02a7493a-61f9-433b-b4aa-9072b7bef515" Version="V2" WindowResize="Maximize">
             <uix:NApplicationCard.Body>
               <ActivityAction x:TypeArguments="x:Object">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
                 </ActivityAction.Argument>
-                <Sequence sap:VirtualizedContainerService.HintSize="594,1590" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                <Sequence sap:VirtualizedContainerService.HintSize="1662,5692" sap2010:WorkflowViewState.IdRef="Sequence_23">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Sequence sap2010:Annotation.AnnotationText="Se verifica si se ha lanzado correctamente la aplicaion" DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="560,1528" sap2010:WorkflowViewState.IdRef="Sequence_12">
-                    <Sequence.Variables>
-                      <Variable x:TypeArguments="ui:UiElement" Name="ElementoEncontrado" />
-                    </Sequence.Variables>
+                  <Sequence sap2010:Annotation.AnnotationText="En esta secuencia de la fase se hara solo el lanzamiento de la aplicacion google chrome y verificando que se lanzara correctamente" DisplayName="Secuencia de inicio navegador web" sap:VirtualizedContainerService.HintSize="1628,1664" sap2010:WorkflowViewState.IdRef="Sequence_19">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:WaitUiElementAppear WaitActive="{x:Null}" WaitVisible="{x:Null}" ContinueOnError="True" DisplayName="Busca campo URL" FoundElement="[ElementoEncontrado]" sap:VirtualizedContainerService.HintSize="526,139" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_3">
-                      <ui:WaitUiElementAppear.Target>
-                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7bc23151-5421-4970-9c82-374ef0a4f3e5" InformativeScreenshot="5ae9cdc2f16fad735ab1f97d9c8b23b0" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Google - Google Chrome' /&gt;&lt;ctrl name='Google - Google Chrome' role='pane' /&gt;&lt;ctrl name='Barra de direcciones y de búsqueda ' role='editable text' /&gt;" TimeoutMS="[TimeOut_M]">
-                          <ui:Target.WaitForReady>
-                            <InArgument x:TypeArguments="ui:WaitForReady" />
-                          </ui:Target.WaitForReady>
-                        </ui:Target>
-                      </ui:WaitUiElementAppear.Target>
-                    </ui:WaitUiElementAppear>
-                    <If Condition="[ElementoEncontrado IsNot Nothing]" sap:VirtualizedContainerService.HintSize="526,1271" sap2010:WorkflowViewState.IdRef="If_1">
+                    <Sequence sap2010:Annotation.AnnotationText="Se verifica si se ha lanzado correctamente la aplicaion" DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="560,1528" sap2010:WorkflowViewState.IdRef="Sequence_12">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <If.Then>
-                        <Sequence sap2010:Annotation.AnnotationText="Elemento necesario encontrado" DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,257" sap2010:WorkflowViewState.IdRef="Sequence_15">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <ui:LogMessage DisplayName="Pagina lanzada" sap:VirtualizedContainerService.HintSize="382,166" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Se ha abierto la pagina web correctamente&quot;]">
+                      <ui:WaitUiElementAppear WaitActive="{x:Null}" WaitVisible="{x:Null}" ContinueOnError="True" DisplayName="Busca campo URL" FoundElement="[ElementoEncontrado]" sap:VirtualizedContainerService.HintSize="526,139" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_3">
+                        <ui:WaitUiElementAppear.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7bc23151-5421-4970-9c82-374ef0a4f3e5" InformativeScreenshot="5ae9cdc2f16fad735ab1f97d9c8b23b0" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='*' /&gt;&lt;ctrl name='*' role='pane' /&gt;&lt;ctrl name='* ' role='editable text' /&gt;" TimeoutMS="[TimeOut_M]">
+                            <ui:Target.WaitForReady>
+                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                            </ui:Target.WaitForReady>
+                          </ui:Target>
+                        </ui:WaitUiElementAppear.Target>
+                      </ui:WaitUiElementAppear>
+                      <If Condition="[ElementoEncontrado IsNot Nothing]" sap:VirtualizedContainerService.HintSize="526,1271" sap2010:WorkflowViewState.IdRef="If_1">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <If.Then>
+                          <Sequence sap2010:Annotation.AnnotationText="Elemento necesario encontrado" DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,257" sap2010:WorkflowViewState.IdRef="Sequence_15">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                          </ui:LogMessage>
-                        </Sequence>
-                      </If.Then>
-                      <If.Else>
-                        <Sequence sap2010:Annotation.AnnotationText="Elemento no encontrado" DisplayName="Else" sap:VirtualizedContainerService.HintSize="492,851" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                            <ui:LogMessage DisplayName="Pagina lanzada" sap:VirtualizedContainerService.HintSize="382,166" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Se ha abierto la pagina web correctamente&quot;]">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:LogMessage>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence sap2010:Annotation.AnnotationText="Elemento no encontrado" DisplayName="Else" sap:VirtualizedContainerService.HintSize="492,851" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:RetryScope DisplayName="intenta refrescar pagina" sap:VirtualizedContainerService.HintSize="458,760" sap2010:WorkflowViewState.IdRef="RetryScope_2" NumberOfRetries="3" RetryInterval="00:00:10">
+                              <ui:RetryScope.ActivityBody>
+                                <ActivityAction>
+                                  <Sequence sap2010:Annotation.AnnotationText="Si se ha llegado a este punto significa que aun no ha cargado correctamente la web y no se ha encontrado el elemento necesario para poder  continuar como resultado lo que se intentara refrescar 3 veces en un intervalo de 10 segundos , en caso que aun no logre cargar la pagina web se arrojara como System exception" DisplayName="Intenta refrescar web" sap:VirtualizedContainerService.HintSize="416,448" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:LogMessage DisplayName="intenta Refrescar" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Se intenta refrescar web&quot;]">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                    </ui:LogMessage>
+                                    <uix:NNavigateBrowser Action="Refresh" DisplayName="F5 en web" sap:VirtualizedContainerService.HintSize="382,114" sap2010:WorkflowViewState.IdRef="NNavigateBrowser_1" Version="V4" />
+                                    <ui:WaitUiElementAppear WaitActive="{x:Null}" WaitVisible="{x:Null}" ContinueOnError="True" DisplayName="Busca campo URL" FoundElement="[ElementoEncontrado]" sap:VirtualizedContainerService.HintSize="382,130" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_4">
+                                      <ui:WaitUiElementAppear.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7bc23151-5421-4970-9c82-374ef0a4f3e5" InformativeScreenshot="5ae9cdc2f16fad735ab1f97d9c8b23b0" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='*' /&gt;&lt;ctrl name='*' role='pane' /&gt;&lt;ctrl name='* ' role='editable text' /&gt;" TimeoutMS="[TimeOut_M]">
+                                          <ui:Target.WaitForReady>
+                                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                                          </ui:Target.WaitForReady>
+                                        </ui:Target>
+                                      </ui:WaitUiElementAppear.Target>
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                    </ui:WaitUiElementAppear>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:RetryScope.ActivityBody>
+                              <ui:RetryScope.Condition>
+                                <ActivityFunc x:TypeArguments="x:Boolean">
+                                  <ui:CheckTrue DisplayName="Check True" ErrorMessage="No se ha logrado obtener el campo de texto para ingresar la URL" Expression="[ElementoEncontrado IsNot Nothing]" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="CheckTrue_1" />
+                                </ActivityFunc>
+                              </ui:RetryScope.Condition>
+                            </ui:RetryScope>
+                          </Sequence>
+                        </If.Else>
+                      </If>
+                    </Sequence>
+                  </Sequence>
+                  <Sequence sap2010:Annotation.AnnotationText="En esta secuencia de la fase se verificara el idioma en el cual se encuentra amazon en el que debiese quedar en Ingles con tipo CLP (Peso chileno) guardando los cambios" DisplayName="Secuencia verifica idioma y tipo de moneda" sap:VirtualizedContainerService.HintSize="1628,3966" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <uix:NCheckState sap2010:Annotation.AnnotationText="Se verifica el idioma en el cual se encuentra en primera instancia ya que debiese esta en EN caso que no sea asi se procede a cambiar" DisplayName="Verifica idioma" Exists="[ResultadoBusqueda]" sap:VirtualizedContainerService.HintSize="1594,3848" sap2010:WorkflowViewState.IdRef="NCheckState_2" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Timeout="[TimeOut_M]" Version="V4">
+                      <uix:NCheckState.IfExists>
+                        <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="1090,3577" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="x:String" Name="Idioma" />
+                          </Sequence.Variables>
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                               <x:Boolean x:Key="IsPinned">False</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <ui:RetryScope DisplayName="intenta refrescar pagina" sap:VirtualizedContainerService.HintSize="458,760" sap2010:WorkflowViewState.IdRef="RetryScope_2" NumberOfRetries="3" RetryInterval="00:00:10">
-                            <ui:RetryScope.ActivityBody>
-                              <ActivityAction>
-                                <Sequence sap2010:Annotation.AnnotationText="Si se ha llegado a este punto significa que aun no ha cargado correctamente la web y no se ha encontrado el elemento necesario para poder  continuar como resultado lo que se intentara refrescar 3 veces en un intervalo de 10 segundos , en caso que aun no logre cargar la pagina web se arrojara como System exception" DisplayName="Intenta refrescar web" sap:VirtualizedContainerService.HintSize="416,448" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                          <uix:NGetText DisplayName="obten idioma" sap:VirtualizedContainerService.HintSize="1056,189" sap2010:WorkflowViewState.IdRef="NGetText_1" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" TextString="[Idioma]" Timeout="[TimeOut_M]" Version="V4">
+                            <uix:NGetText.Target>
+                              <uix:TargetAnchorable BrowserURL="https://www.amazon.com/-/es/" CVScreenId="c64a114f-72f8-45d8-bb45-da6c87769f41" CvTextArea="1550, 208, 17, 13" CvType="AnyWordGroup" DesignTimeRectangle="1512, 186, 74, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl id='icp-nav-flyout' tag='A' /&gt;" Guid="0a9eb82a-8da8-458c-8343-0e5b9a490e29" ImageBase64="" InformativeScreenshot="0ad832f93abd545ab58d7713d6eb6669.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Amazon.com. Spend less. Smile more.' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive" />
+                            </uix:NGetText.Target>
+                          </uix:NGetText>
+                          <If Condition="[Idioma.ToLower.Contains(&quot;en&quot;)]" sap:VirtualizedContainerService.HintSize="1056,3328" sap2010:WorkflowViewState.IdRef="If_3">
+                            <If.Then>
+                              <Sequence sap2010:Annotation.AnnotationText="Idioma correcto continua verificando el tipo de moneda" DisplayName="Then" sap:VirtualizedContainerService.HintSize="484,1032" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:LogMessage DisplayName="Idioma correcto" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Tipo de idioma :&quot;+Idioma]">
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <ui:LogMessage DisplayName="intenta Refrescar" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Se intenta refrescar web&quot;]">
+                                </ui:LogMessage>
+                                <uix:NHover DelayBefore="2" DisplayName="Hover 'EN'" sap:VirtualizedContainerService.HintSize="450,225" HoverTime="2" sap2010:WorkflowViewState.IdRef="NHover_1" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Timeout="[TimeOut_M]" Version="V4">
+                                  <uix:NHover.Target>
+                                    <uix:TargetAnchorable BrowserURL="https://www.amazon.com/ref=nav_logo" CVScreenId="83b82768-572e-4e82-b411-3198b931ab13" CvTextArea="1550, 208, 17, 13" CvTextArgument="EN" CvType="Text" DesignTimeRectangle="1512, 186, 74, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl id='icp-nav-flyout' tag='A' /&gt;" Guid="331d8e1e-133a-461a-897c-4ff2a5116e54" InformativeScreenshot="d3af9b231328d8e5486f74afc58a5be9.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Amazon.com. Spend less. Smile more.' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive" />
+                                  </uix:NHover.Target>
+                                  <uix:NHover.VerifyOptions>
+                                    <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                                      <uix:VerifyExecutionOptions.Retry>
+                                        <InArgument x:TypeArguments="x:Boolean" />
+                                      </uix:VerifyExecutionOptions.Retry>
+                                      <uix:VerifyExecutionOptions.Timeout>
+                                        <InArgument x:TypeArguments="x:Double" />
+                                      </uix:VerifyExecutionOptions.Timeout>
+                                    </uix:VerifyExecutionOptions>
+                                  </uix:NHover.VerifyOptions>
+                                </uix:NHover>
+                                <uix:NGetText DisplayName="Lee tipo de moneda" sap:VirtualizedContainerService.HintSize="450,189" sap2010:WorkflowViewState.IdRef="NGetText_4" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" TextString="[Moneda]" Timeout="[TimeOut_M]" Version="V4">
+                                  <uix:NGetText.Target>
+                                    <uix:TargetAnchorable BrowserURL="https://www.amazon.com/" CVScreenId="401094de-ae7c-4138-8af5-49900a3f9082" CvTextArea="1540, 536, 159, 12" CvType="AnyWordGroup" DesignTimeRectangle="1525, 534, 174, 17" DesignTimeScaleFactor="1" FullSelectorArgument="&lt;webctrl aaname=' -  - South Korean Won' parentid='nav-flyout-icp' tag='SPAN' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname=' -  - South Korean Won' parentid='nav-flyout-icp' tag='SPAN' type='' class='' /&gt;" Guid="51c3e88d-80e3-4242-beba-2e89fe3aa640" InformativeScreenshot="8554fbeaf27c85a6b4e687c8d12d268c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Amazon.com. Spend less. Smile more.' /&gt;" SearchSteps="Selector, FuzzySelector, CV" Version="V4" Visibility="Interactive">
+                                      <uix:TargetAnchorable.Anchors>
+                                        <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                          <uix:Target CVScreenId="401094de-ae7c-4138-8af5-49900a3f9082" CvTextArea="1547, 156, 20, 13" CvTextArgument="EN" CvType="Text" DesignTimeRectangle="1512, 134, 74, 50" ElementType="Text" FuzzySelectorArgument="&lt;webctrl id='icp-nav-flyout' tag='A' type='' class='nav-a nav-a-2 icp-link-style-2 nav-active' aaname='                                              EN                        ' check:innerText='EN' /&gt;" Guid="a9511662-af2f-403b-9369-88832612e1e6" SearchSteps="FuzzySelector, CV" />
+                                        </scg:List>
+                                      </uix:TargetAnchorable.Anchors>
+                                    </uix:TargetAnchorable>
+                                  </uix:NGetText.Target>
+                                </uix:NGetText>
+                                <ui:LogMessage DisplayName="Tipo de moneda" sap:VirtualizedContainerService.HintSize="450,57" sap2010:WorkflowViewState.IdRef="LogMessage_17" Level="Info" Message="[&quot;Tipo de moneda :&quot;+Moneda]">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:LogMessage>
+                                <If sap2010:Annotation.AnnotationText="tipo de moneda no es CLP en este punto solo se configurara a tipo de moneda CLP" Condition="[Moneda.ToLower.Contains(&quot;clp&quot;)]" sap:VirtualizedContainerService.HintSize="450,295" sap2010:WorkflowViewState.IdRef="If_5">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <If.Then>
+                                    <Sequence sap2010:Annotation.AnnotationText="Si ha llegado a este punto es porque en amazon se encuentra el tipo de idoma EN y el tipo de moneda CLP y no sera necesario cambiarlos" DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,67" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:LogMessage DisplayName="tidioma y tipo correctos" sap:VirtualizedContainerService.HintSize="382,48" sap2010:WorkflowViewState.IdRef="LogMessage_16" Level="Trace" Message="[&quot;Idioma y tipo de moneda se encuentran correctamente configurados no sera necesario modificarlos se cotinua con el proceso normalmente&quot;]">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:LogMessage>
+                                    </Sequence>
+                                  </If.Then>
+                                  <If.Else>
+                                    <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,25" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <uix:NClick ActivateBefore="True" ClickType="Single" DelayAfter="1" DisplayName="Click 'EN'" sap:VirtualizedContainerService.HintSize="450,225" sap2010:WorkflowViewState.IdRef="NClick_7" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Timeout="[TimeOut_M]" Version="V4">
+                                        <uix:NClick.Target>
+                                          <uix:TargetAnchorable BrowserURL="https://www.amazon.com/?language=en_US&amp;currency=CLP" CVScreenId="57621cc1-ea2a-494f-b92d-4a69a806f0fc" CvTextArea="1550, 208, 17, 13" CvTextArgument="EN" CvType="Text" DesignTimeRectangle="1512, 186, 74, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl id='icp-nav-flyout' tag='A' /&gt;" Guid="069b647d-6020-45c1-a4f7-e9650e3a45fc" InformativeScreenshot="a82daf88c909a111af03aa5987d0083c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Amazon.com. Spend less. Smile more.' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive" />
+                                        </uix:NClick.Target>
+                                        <uix:NClick.VerifyOptions>
+                                          <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                                            <uix:VerifyExecutionOptions.Retry>
+                                              <InArgument x:TypeArguments="x:Boolean" />
+                                            </uix:VerifyExecutionOptions.Retry>
+                                            <uix:VerifyExecutionOptions.Timeout>
+                                              <InArgument x:TypeArguments="x:Double" />
+                                            </uix:VerifyExecutionOptions.Timeout>
+                                          </uix:VerifyExecutionOptions>
+                                        </uix:NClick.VerifyOptions>
+                                      </uix:NClick>
+                                      <Sequence DisplayName="Secuencia verifica o selecciona tipo de moneda CLP" sap:VirtualizedContainerService.HintSize="450,48" sap2010:WorkflowViewState.IdRef="Sequence_45">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <uix:NGetText DisplayName="Obtiene Moneda por defecto" sap:VirtualizedContainerService.HintSize="450,189" sap2010:WorkflowViewState.IdRef="NGetText_5" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" TextString="[Moneda]" Timeout="[TimeOut_M]" Version="V4">
+                                          <uix:NGetText.Target>
+                                            <uix:TargetAnchorable BrowserURL="https://www.amazon.com/customer-preferences/edit?ref_=icp_cop_flyout_change&amp;preferencesReturnUrl=%2Fcustomer-preferences%2Fedit%3Fie%3DUTF8%26preferencesReturnUrl%3D%252F%253Flanguage%253Den_US%2526currency%253DCLP%26ref_%3Dtopnav_lang_ais" CVScreenId="7206ccd9-511a-4a82-83fd-25563544abeb" CvElementArea="165, 767, 389, 41" CvType="InputBox" DesignTimeRectangle="170, 773, 378, 29" DesignTimeScaleFactor="1" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;div&amp;gt;div&amp;gt;p&amp;gt;span&amp;gt;span&amp;gt;span&amp;gt;span' parentid='icp-currency-dropdown-selected-item-prompt' tag='SPAN' /&gt;" Guid="8676a560-efc9-4516-84ad-4a58a4d96bfa" ImageBase64="" InformativeScreenshot="14eac29e827610ea7da792d502d96a03.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Change Language &amp;amp; Currency Settings' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive" />
+                                          </uix:NGetText.Target>
+                                        </uix:NGetText>
+                                        <If Condition="[Moneda.ToLower.Contains(&quot;clp&quot;)]" sap:VirtualizedContainerService.HintSize="450,303" sap2010:WorkflowViewState.IdRef="If_6">
+                                          <If.Then>
+                                            <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,108" sap2010:WorkflowViewState.IdRef="Sequence_46">
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                              <ui:LogMessage DisplayName="Tipo moneda CLP" sap:VirtualizedContainerService.HintSize="382,48" sap2010:WorkflowViewState.IdRef="LogMessage_18" Level="Info" Message="[&quot;Tipo de moneda se encuentra como CLP&quot;]">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                              </ui:LogMessage>
+                                            </Sequence>
+                                          </If.Then>
+                                          <If.Else>
+                                            <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,25" sap2010:WorkflowViewState.IdRef="Sequence_47">
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="LogMessage_20" Level="Info" Message="[&quot;Tipo de moneda encontrado &quot;+Moneda+&quot; se procede a cambiar a CLP&quot;]">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                              </ui:LogMessage>
+                                              <ucas:SelectMenuItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Selecciona Peso Chileno" sap:VirtualizedContainerService.HintSize="382,192" sap2010:WorkflowViewState.IdRef="SelectMenuItem_2" Item="CLP - Chilean Peso">
+                                                <ucas:SelectMenuItem.Items>
+                                                  <scg:List x:TypeArguments="x:String" Capacity="50">
+                                                    <x:String>Select Currency</x:String>
+                                                    <x:String>$ - USD - US Dollar (Default)</x:String>
+                                                    <x:String>CLP - Chilean Peso</x:String>
+                                                    <x:String>COP - Colombian Peso</x:String>
+                                                    <x:String>HK$ - HKD - Hong Kong Dollar</x:String>
+                                                    <x:String>IDR - Indonesian Rupiah</x:String>
+                                                    <x:String>₪ - ILS - Israeli New Shekel</x:String>
+                                                    <x:String>₩ - KRW - South Korean Won</x:String>
+                                                    <x:String>MYR - Malaysian Ringgit</x:String>
+                                                    <x:String>NZ$ - NZD - New Zealand Dollar</x:String>
+                                                    <x:String>THB - Thai Baht</x:String>
+                                                    <x:String>NT$ - TWD - New Taiwan Dollar</x:String>
+                                                    <x:String>CRC - Costa Rican Colón</x:String>
+                                                    <x:String>PEN - Peruvian Sol</x:String>
+                                                    <x:String>UYU - Uruguayan Peso</x:String>
+                                                    <x:String>R$ - BRL - Brazilian Real</x:String>
+                                                    <x:String>A$ - AUD - Australian Dollar</x:String>
+                                                    <x:String>CA$ - CAD - Canadian Dollar</x:String>
+                                                    <x:String>CN¥ - CNY - Chinese Yuan</x:String>
+                                                    <x:String>€ - EUR - Euro</x:String>
+                                                    <x:String>¥ - JPY - Japanese Yen</x:String>
+                                                    <x:String>MX$ - MXN - Mexican Peso</x:String>
+                                                    <x:String>£ - GBP - British Pound</x:String>
+                                                    <x:String>AED - United Arab Emirates Dirham</x:String>
+                                                    <x:String>SGD - Singapore Dollar</x:String>
+                                                    <x:String>SAR - Saudi Riyal</x:String>
+                                                    <x:String>NOK - Norwegian Krone</x:String>
+                                                    <x:String>ARS - Argentine Peso</x:String>
+                                                    <x:String>AMD - Armenian Dram</x:String>
+                                                    <x:String>AWG - Aruban Florin</x:String>
+                                                    <x:String>AZN - Azerbaijani Manat</x:String>
+                                                    <x:String>BSD - Bahamian Dollar</x:String>
+                                                    <x:String>BZD - Belize Dollar</x:String>
+                                                    <x:String>BOB - Bolivian Boliviano</x:String>
+                                                    <x:String>BND - Brunei Dollar</x:String>
+                                                    <x:String>BGN - Bulgarian Lev</x:String>
+                                                    <x:String>KHR - Cambodian Riel</x:String>
+                                                    <x:String>KYD - Cayman Islands Dollar</x:String>
+                                                    <x:String>DOP - Dominican Peso</x:String>
+                                                    <x:String>EC$ - XCD - East Caribbean Dollar</x:String>
+                                                    <x:String>EGP - Egyptian Pound</x:String>
+                                                    <x:String>GHS - Ghanaian Cedi</x:String>
+                                                    <x:String>GTQ - Guatemalan Quetzal</x:String>
+                                                    <x:String>HUF - Hungarian Forint</x:String>
+                                                    <x:String>₹ - INR - Indian Rupee</x:String>
+                                                    <x:String>JMD - Jamaican Dollar</x:String>
+                                                    <x:String>KZT - Kazakhstani Tenge</x:String>
+                                                    <x:String>KES - Kenyan Shilling</x:String>
+                                                    <x:String>LBP - Lebanese Pound</x:String>
+                                                    <x:String>HNL - Honduran Lempira</x:String>
+                                                  </scg:List>
+                                                </ucas:SelectMenuItem.Items>
+                                                <ucas:SelectMenuItem.Target>
+                                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="907a794f-e5d2-4afe-a251-e02767a0021d" InformativeScreenshot="3dc1880c25a0ad8d62a4077c8313e682" Selector="&lt;webctrl parentid='icp-currency-dropdown-selected-item-prompt' tag='SPAN' /&gt;">
+                                                    <ui:Target.TimeoutMS>
+                                                      <InArgument x:TypeArguments="x:Int32" />
+                                                    </ui:Target.TimeoutMS>
+                                                    <ui:Target.WaitForReady>
+                                                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                                                    </ui:Target.WaitForReady>
+                                                  </ui:Target>
+                                                </ucas:SelectMenuItem.Target>
+                                              </ucas:SelectMenuItem>
+                                              <ui:LogMessage DisplayName="Peso seleccionado" sap:VirtualizedContainerService.HintSize="382,48" sap2010:WorkflowViewState.IdRef="LogMessage_21" Level="Info" Message="[&quot;Peso chileno seleccionado correctamente&quot;]">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                              </ui:LogMessage>
+                                            </Sequence>
+                                          </If.Else>
+                                        </If>
+                                        <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Guardar Cambios" sap:VirtualizedContainerService.HintSize="450,225" sap2010:WorkflowViewState.IdRef="NClick_8" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Version="V4">
+                                          <uix:NClick.Target>
+                                            <uix:TargetAnchorable BrowserURL="https://www.amazon.com/customer-preferences/edit?ref_=icp_cop_flyout_change&amp;preferencesReturnUrl=%2Fcustomer-preferences%2Fedit%3Fie%3DUTF8%26preferencesReturnUrl%3D%252F%253Flanguage%253Den_US%2526currency%253DCLP%26ref_%3Dtopnav_lang_ais" CVScreenId="7206ccd9-511a-4a82-83fd-25563544abeb" CvElementArea="238, 939, 108, 35" CvTextArea="251, 949, 82, 16" CvTextArgument="Save Changes" CvType="Button" DesignTimeRectangle="241, 942, 102, 29" DesignTimeScaleFactor="1" ElementType="Button" FuzzySelectorArgument="&lt;webctrl aria-labelledby='icp-save-button-announce' tag='INPUT' type='submit' class='a-button-input' aaname='' /&gt;" Guid="ac7af755-07a6-40b3-9bc9-96aea33e9997" InformativeScreenshot="0ec81ef6584d3a529235161703698df6.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Change Language &amp;amp; Currency Settings' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive" />
+                                          </uix:NClick.Target>
+                                          <uix:NClick.VerifyOptions>
+                                            <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                                              <uix:VerifyExecutionOptions.Retry>
+                                                <InArgument x:TypeArguments="x:Boolean" />
+                                              </uix:VerifyExecutionOptions.Retry>
+                                              <uix:VerifyExecutionOptions.Timeout>
+                                                <InArgument x:TypeArguments="x:Double" />
+                                              </uix:VerifyExecutionOptions.Timeout>
+                                            </uix:VerifyExecutionOptions>
+                                          </uix:NClick.VerifyOptions>
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </uix:NClick>
+                                        <ui:LogMessage DisplayName="Idioma y Moneda verificados" sap:VirtualizedContainerService.HintSize="450,48" sap2010:WorkflowViewState.IdRef="LogMessage_19" Level="Info" Message="[&quot;Idioma y tipo de moneda configurados correctamente&quot;]">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:LogMessage>
+                                      </Sequence>
+                                    </Sequence>
+                                  </If.Else>
+                                </If>
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence sap2010:Annotation.AnnotationText="Idioma incorrecto se procede a cambiar el idioma y se continua a verificar el tipo de moneda" DisplayName="Else" sap:VirtualizedContainerService.HintSize="1022,2135" sap2010:WorkflowViewState.IdRef="Sequence_32">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Sequence DisplayName="Secuencia de cambio de idioma" sap:VirtualizedContainerService.HintSize="988,1196" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Idioma incorrecto" sap:VirtualizedContainerService.HintSize="954,175" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Idioma en el que se encuentra amazon es &quot;+Idioma+&quot; se procede a cambiar de tipo EN&quot;]" />
+                                  <uix:NClick ActivateBefore="True" ClickType="Single" DelayAfter="1" DisplayName="Click 'EN'" sap:VirtualizedContainerService.HintSize="954,225" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Timeout="[TimeOut_M]" Version="V4">
+                                    <uix:NClick.Target>
+                                      <uix:TargetAnchorable BrowserURL="https://www.amazon.com/?language=en_US&amp;currency=CLP" CVScreenId="57621cc1-ea2a-494f-b92d-4a69a806f0fc" CvTextArea="1550, 208, 17, 13" CvTextArgument="EN" CvType="Text" DesignTimeRectangle="1512, 186, 74, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl id='icp-nav-flyout' tag='A' /&gt;" Guid="069b647d-6020-45c1-a4f7-e9650e3a45fc" InformativeScreenshot="a82daf88c909a111af03aa5987d0083c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Amazon.com. Spend less. Smile more.' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive" />
+                                    </uix:NClick.Target>
+                                    <uix:NClick.VerifyOptions>
+                                      <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                                        <uix:VerifyExecutionOptions.Retry>
+                                          <InArgument x:TypeArguments="x:Boolean" />
+                                        </uix:VerifyExecutionOptions.Retry>
+                                        <uix:VerifyExecutionOptions.Timeout>
+                                          <InArgument x:TypeArguments="x:Double" />
+                                        </uix:VerifyExecutionOptions.Timeout>
+                                      </uix:VerifyExecutionOptions>
+                                    </uix:NClick.VerifyOptions>
+                                  </uix:NClick>
+                                  <uix:NCheckState DisplayName="Verifica existencia tipo de idioma a seleccionar EN" Exists="[ResultadoBusqueda]" sap:VirtualizedContainerService.HintSize="954,704" sap2010:WorkflowViewState.IdRef="NCheckState_3" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Timeout="[TimeOut_M]" Version="V4">
+                                    <uix:NCheckState.IfExists>
+                                      <Sequence DisplayName="Selecciona idioma" sap:VirtualizedContainerService.HintSize="450,337" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <uix:NClick ActivateBefore="True" ClickType="Single" DelayBefore="1" DisplayName="Selecciona ingles" sap:VirtualizedContainerService.HintSize="416,225" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Version="V4">
+                                          <uix:NClick.Target>
+                                            <uix:TargetAnchorable BrowserURL="https://www.amazon.com/customer-preferences/edit?ref_=icp_cop_flyout_change&amp;preferencesReturnUrl=%2Fcustomer-preferences%2Fedit%3Fie%3DUTF8%26preferencesReturnUrl%3D%252F%253Flanguage%253Den_US%2526currency%253DCLP%26ref_%3Dtopnav_lang_ais" CVScreenId="76994c11-8096-4f11-bd3d-7785ba1b2a7d" CvElementArea="170, 379, 22, 22" CvType="RadioButton" DesignTimeRectangle="172, 381, 17, 17" DesignTimeScaleFactor="1" FuzzySelectorArgument="&lt;webctrl parentid='icp-language-settings' tag='I' type='' class='a-icon a-icon-radio' aaname='' /&gt;" Guid="5b31acbf-90e5-40e7-8f6d-447388b28098" InformativeScreenshot="a02a5e38cc806b7954f0ae014a93de2b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Change Language &amp;amp; Currency Settings' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive">
+                                              <uix:TargetAnchorable.Anchors>
+                                                <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                                  <uix:Target CVScreenId="76994c11-8096-4f11-bd3d-7785ba1b2a7d" CvElementArea="187, 375, 311, 35" CvType="InputBox" DesignTimeRectangle="194, 381, 76, 18" FuzzySelectorArgument="&lt;webctrl aaname='         English -                        ' parentid='icp-language-settings' tag='SPAN' type='' class='' check:innerText='English - EN' /&gt;" Guid="93eeea0d-f4e1-42d2-b4ab-a5e0d584884c" SearchSteps="FuzzySelector, CV" />
+                                                </scg:List>
+                                              </uix:TargetAnchorable.Anchors>
+                                            </uix:TargetAnchorable>
+                                          </uix:NClick.Target>
+                                          <uix:NClick.VerifyOptions>
+                                            <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                                              <uix:VerifyExecutionOptions.Retry>
+                                                <InArgument x:TypeArguments="x:Boolean" />
+                                              </uix:VerifyExecutionOptions.Retry>
+                                              <uix:VerifyExecutionOptions.Timeout>
+                                                <InArgument x:TypeArguments="x:Double" />
+                                              </uix:VerifyExecutionOptions.Timeout>
+                                            </uix:VerifyExecutionOptions>
+                                          </uix:NClick.VerifyOptions>
+                                        </uix:NClick>
+                                        <ui:LogMessage DisplayName="Idioma cambiado" sap:VirtualizedContainerService.HintSize="416,50" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;Idioma EN seleccionado correctamente&quot;]">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:LogMessage>
+                                      </Sequence>
+                                    </uix:NCheckState.IfExists>
+                                    <uix:NCheckState.IfNotExists>
+                                      <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="450,464" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <ui:LogMessage DisplayName="Boton no encontrado" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Error" Message="[&quot;No se ha encontrado el boton en el cual se cambia el idioma EN&quot;]" />
+                                        <ui:RetryScope sap2010:Annotation.AnnotationText="Si ha llegado a este punto quiere decir que en primera instancia amazon no se encuentra como idioma EN el robot intento cambiar a tal idioma pero no ha encontrado el boton , se refrescara 3 veces la pagina intentando nuevamente encontrar el boton necesario para poder continuar" DisplayName="Intenta refrescar pagina" sap:VirtualizedContainerService.HintSize="416,227" sap2010:WorkflowViewState.IdRef="RetryScope_3" NumberOfRetries="3" RetryInterval="10.00:00:00">
+                                          <ui:RetryScope.ActivityBody>
+                                            <ActivityAction>
+                                              <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="416,529" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <uix:NNavigateBrowser Action="Refresh" DisplayName="F5 en web" sap:VirtualizedContainerService.HintSize="382,114" sap2010:WorkflowViewState.IdRef="NNavigateBrowser_2" Version="V4" />
+                                                <ui:WaitUiElementAppear WaitActive="{x:Null}" WaitVisible="{x:Null}" DisplayName="Boton EN" FoundElement="[ElementoEncontrado]" sap:VirtualizedContainerService.HintSize="382,139" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_6">
+                                                  <ui:WaitUiElementAppear.Target>
+                                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="15ed8ab6-0d62-4964-8741-d9a0554aac6d" InformativeScreenshot="676c306600220244e93ef8dad7aaf9a9" Selector="&lt;webctrl parentid='icp-language-settings' tag='I' /&gt;" TimeoutMS="[TimeOut_M]">
+                                                      <ui:Target.WaitForReady>
+                                                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                                                      </ui:Target.WaitForReady>
+                                                    </ui:Target>
+                                                  </ui:WaitUiElementAppear.Target>
+                                                </ui:WaitUiElementAppear>
+                                                <uix:NClick ActivateBefore="True" ClickType="Single" DelayBefore="1" DisplayName="Selecciona ingles" sap:VirtualizedContainerService.HintSize="382,216" sap2010:WorkflowViewState.IdRef="NClick_3" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Version="V4">
+                                                  <uix:NClick.Target>
+                                                    <uix:TargetAnchorable BrowserURL="https://www.amazon.com/customer-preferences/edit?ref_=icp_cop_flyout_change&amp;preferencesReturnUrl=%2Fcustomer-preferences%2Fedit%3Fie%3DUTF8%26preferencesReturnUrl%3D%252F%253Flanguage%253Den_US%2526currency%253DCLP%26ref_%3Dtopnav_lang_ais" CVScreenId="76994c11-8096-4f11-bd3d-7785ba1b2a7d" CvElementArea="170, 379, 22, 22" CvType="RadioButton" DesignTimeRectangle="172, 381, 17, 17" DesignTimeScaleFactor="1" FuzzySelectorArgument="&lt;webctrl parentid='icp-language-settings' tag='I' type='' class='a-icon a-icon-radio' aaname='' /&gt;" Guid="5b31acbf-90e5-40e7-8f6d-447388b28098" InformativeScreenshot="a02a5e38cc806b7954f0ae014a93de2b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Change Language &amp;amp; Currency Settings' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive">
+                                                      <uix:TargetAnchorable.Anchors>
+                                                        <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                                          <uix:Target CVScreenId="76994c11-8096-4f11-bd3d-7785ba1b2a7d" CvElementArea="187, 375, 311, 35" CvType="InputBox" DesignTimeRectangle="194, 381, 76, 18" FuzzySelectorArgument="&lt;webctrl aaname='         English -                        ' parentid='icp-language-settings' tag='SPAN' type='' class='' check:innerText='English - EN' /&gt;" Guid="93eeea0d-f4e1-42d2-b4ab-a5e0d584884c" SearchSteps="FuzzySelector, CV" />
+                                                        </scg:List>
+                                                      </uix:TargetAnchorable.Anchors>
+                                                    </uix:TargetAnchorable>
+                                                  </uix:NClick.Target>
+                                                  <uix:NClick.VerifyOptions>
+                                                    <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                                                      <uix:VerifyExecutionOptions.Retry>
+                                                        <InArgument x:TypeArguments="x:Boolean" />
+                                                      </uix:VerifyExecutionOptions.Retry>
+                                                      <uix:VerifyExecutionOptions.Timeout>
+                                                        <InArgument x:TypeArguments="x:Double" />
+                                                      </uix:VerifyExecutionOptions.Timeout>
+                                                    </uix:VerifyExecutionOptions>
+                                                  </uix:NClick.VerifyOptions>
+                                                </uix:NClick>
+                                              </Sequence>
+                                            </ActivityAction>
+                                          </ui:RetryScope.ActivityBody>
+                                          <ui:RetryScope.Condition>
+                                            <ActivityFunc x:TypeArguments="x:Boolean">
+                                              <ui:CheckTrue DisplayName="Check True" ErrorMessage="No se ha logrado encontrar el boton para selecionar el idoma EN" Expression="[ElementoEncontrado IsNot Nothing]" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="CheckTrue_2" />
+                                            </ActivityFunc>
+                                          </ui:RetryScope.Condition>
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:RetryScope>
+                                      </Sequence>
+                                    </uix:NCheckState.IfNotExists>
+                                    <uix:NCheckState.Target>
+                                      <uix:TargetAnchorable BrowserURL="https://www.amazon.com/customer-preferences/edit?ref_=icp_cop_flyout_change&amp;preferencesReturnUrl=%2Fcustomer-preferences%2Fedit%3Fie%3DUTF8%26preferencesReturnUrl%3D%252F%253Flanguage%253Den_US%2526currency%253DCLP%26ref_%3Dtopnav_lang_ais" CVScreenId="76994c11-8096-4f11-bd3d-7785ba1b2a7d" CvElementArea="170, 379, 22, 22" CvType="RadioButton" DesignTimeRectangle="170, 379, 21, 21" DesignTimeScaleFactor="1" Guid="5d291989-33f0-4bd5-bd23-f7401d9f74fd" ImageBase64="" InformativeScreenshot="e219ceeadd188124c5aaa041ede178b3.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Change Language &amp;amp; Currency Settings' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive">
+                                        <uix:TargetAnchorable.Anchors>
+                                          <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                            <uix:Target CVScreenId="76994c11-8096-4f11-bd3d-7785ba1b2a7d" CvElementArea="187, 375, 311, 35" CvType="InputBox" DesignTimeRectangle="194, 381, 76, 18" FullSelectorArgument="&lt;webctrl aaname='         English -                        ' parentid='icp-language-settings' tag='SPAN' /&gt;" Guid="d2f0cf2d-6fa7-4085-8556-a202edae4dcb" SearchSteps="Selector, CV" />
+                                          </scg:List>
+                                        </uix:TargetAnchorable.Anchors>
+                                      </uix:TargetAnchorable>
+                                    </uix:NCheckState.Target>
+                                  </uix:NCheckState>
+                                </Sequence>
+                                <Sequence DisplayName="Secuencia verifica o selecciona tipo de moneda CLP" sap:VirtualizedContainerService.HintSize="988,848" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <uix:NGetText DisplayName="Obtiene Moneda por defecto" sap:VirtualizedContainerService.HintSize="450,189" sap2010:WorkflowViewState.IdRef="NGetText_3" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" TextString="[Moneda]" Timeout="[TimeOut_M]" Version="V4">
+                                    <uix:NGetText.Target>
+                                      <uix:TargetAnchorable BrowserURL="https://www.amazon.com/customer-preferences/edit?ref_=icp_cop_flyout_change&amp;preferencesReturnUrl=%2Fcustomer-preferences%2Fedit%3Fie%3DUTF8%26preferencesReturnUrl%3D%252F%253Flanguage%253Den_US%2526currency%253DCLP%26ref_%3Dtopnav_lang_ais" CVScreenId="7206ccd9-511a-4a82-83fd-25563544abeb" CvElementArea="165, 767, 389, 41" CvType="InputBox" DesignTimeRectangle="170, 773, 378, 29" DesignTimeScaleFactor="1" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;form&amp;gt;div&amp;gt;div&amp;gt;p&amp;gt;span&amp;gt;span&amp;gt;span&amp;gt;span' parentid='icp-currency-dropdown-selected-item-prompt' tag='SPAN' /&gt;" Guid="8676a560-efc9-4516-84ad-4a58a4d96bfa" ImageBase64="" InformativeScreenshot="14eac29e827610ea7da792d502d96a03.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Change Language &amp;amp; Currency Settings' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive" />
+                                    </uix:NGetText.Target>
+                                  </uix:NGetText>
+                                  <If Condition="[Moneda.ToLower.Contains(&quot;clp&quot;)]" sap:VirtualizedContainerService.HintSize="450,303" sap2010:WorkflowViewState.IdRef="If_4">
+                                    <If.Then>
+                                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,108" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <ui:LogMessage DisplayName="Tipo moneda CLP" sap:VirtualizedContainerService.HintSize="382,48" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;Tipo de moneda se encuentra como CLP&quot;]">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:LogMessage>
+                                      </Sequence>
+                                    </If.Then>
+                                    <If.Else>
+                                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,25" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Info" Message="[&quot;Tipo de moneda encontrado &quot;+Moneda+&quot; se procede a cambiar a CLP&quot;]">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:LogMessage>
+                                        <ucas:SelectMenuItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Selecciona Peso Chileno" sap:VirtualizedContainerService.HintSize="382,192" sap2010:WorkflowViewState.IdRef="SelectMenuItem_1" Item="CLP - Chilean Peso">
+                                          <ucas:SelectMenuItem.Items>
+                                            <scg:List x:TypeArguments="x:String" Capacity="50">
+                                              <x:String>Select Currency</x:String>
+                                              <x:String>$ - USD - US Dollar (Default)</x:String>
+                                              <x:String>CLP - Chilean Peso</x:String>
+                                              <x:String>COP - Colombian Peso</x:String>
+                                              <x:String>HK$ - HKD - Hong Kong Dollar</x:String>
+                                              <x:String>IDR - Indonesian Rupiah</x:String>
+                                              <x:String>₪ - ILS - Israeli New Shekel</x:String>
+                                              <x:String>₩ - KRW - South Korean Won</x:String>
+                                              <x:String>MYR - Malaysian Ringgit</x:String>
+                                              <x:String>NZ$ - NZD - New Zealand Dollar</x:String>
+                                              <x:String>THB - Thai Baht</x:String>
+                                              <x:String>NT$ - TWD - New Taiwan Dollar</x:String>
+                                              <x:String>CRC - Costa Rican Colón</x:String>
+                                              <x:String>PEN - Peruvian Sol</x:String>
+                                              <x:String>UYU - Uruguayan Peso</x:String>
+                                              <x:String>R$ - BRL - Brazilian Real</x:String>
+                                              <x:String>A$ - AUD - Australian Dollar</x:String>
+                                              <x:String>CA$ - CAD - Canadian Dollar</x:String>
+                                              <x:String>CN¥ - CNY - Chinese Yuan</x:String>
+                                              <x:String>€ - EUR - Euro</x:String>
+                                              <x:String>¥ - JPY - Japanese Yen</x:String>
+                                              <x:String>MX$ - MXN - Mexican Peso</x:String>
+                                              <x:String>£ - GBP - British Pound</x:String>
+                                              <x:String>AED - United Arab Emirates Dirham</x:String>
+                                              <x:String>SGD - Singapore Dollar</x:String>
+                                              <x:String>SAR - Saudi Riyal</x:String>
+                                              <x:String>NOK - Norwegian Krone</x:String>
+                                              <x:String>ARS - Argentine Peso</x:String>
+                                              <x:String>AMD - Armenian Dram</x:String>
+                                              <x:String>AWG - Aruban Florin</x:String>
+                                              <x:String>AZN - Azerbaijani Manat</x:String>
+                                              <x:String>BSD - Bahamian Dollar</x:String>
+                                              <x:String>BZD - Belize Dollar</x:String>
+                                              <x:String>BOB - Bolivian Boliviano</x:String>
+                                              <x:String>BND - Brunei Dollar</x:String>
+                                              <x:String>BGN - Bulgarian Lev</x:String>
+                                              <x:String>KHR - Cambodian Riel</x:String>
+                                              <x:String>KYD - Cayman Islands Dollar</x:String>
+                                              <x:String>DOP - Dominican Peso</x:String>
+                                              <x:String>EC$ - XCD - East Caribbean Dollar</x:String>
+                                              <x:String>EGP - Egyptian Pound</x:String>
+                                              <x:String>GHS - Ghanaian Cedi</x:String>
+                                              <x:String>GTQ - Guatemalan Quetzal</x:String>
+                                              <x:String>HUF - Hungarian Forint</x:String>
+                                              <x:String>₹ - INR - Indian Rupee</x:String>
+                                              <x:String>JMD - Jamaican Dollar</x:String>
+                                              <x:String>KZT - Kazakhstani Tenge</x:String>
+                                              <x:String>KES - Kenyan Shilling</x:String>
+                                              <x:String>LBP - Lebanese Pound</x:String>
+                                              <x:String>HNL - Honduran Lempira</x:String>
+                                            </scg:List>
+                                          </ucas:SelectMenuItem.Items>
+                                          <ucas:SelectMenuItem.Target>
+                                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="907a794f-e5d2-4afe-a251-e02767a0021d" InformativeScreenshot="3dc1880c25a0ad8d62a4077c8313e682" Selector="&lt;webctrl parentid='icp-currency-dropdown-selected-item-prompt' tag='SPAN' /&gt;">
+                                              <ui:Target.TimeoutMS>
+                                                <InArgument x:TypeArguments="x:Int32" />
+                                              </ui:Target.TimeoutMS>
+                                              <ui:Target.WaitForReady>
+                                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                                              </ui:Target.WaitForReady>
+                                            </ui:Target>
+                                          </ucas:SelectMenuItem.Target>
+                                        </ucas:SelectMenuItem>
+                                        <ui:LogMessage DisplayName="Peso seleccionado" sap:VirtualizedContainerService.HintSize="382,48" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Peso chileno seleccionado correctamente&quot;]">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:LogMessage>
+                                      </Sequence>
+                                    </If.Else>
+                                  </If>
+                                  <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Guardar Cambios" sap:VirtualizedContainerService.HintSize="450,225" sap2010:WorkflowViewState.IdRef="NClick_5" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="02a7493a-61f9-433b-b4aa-9072b7bef515" Version="V4">
+                                    <uix:NClick.Target>
+                                      <uix:TargetAnchorable BrowserURL="https://www.amazon.com/customer-preferences/edit?ref_=icp_cop_flyout_change&amp;preferencesReturnUrl=%2Fcustomer-preferences%2Fedit%3Fie%3DUTF8%26preferencesReturnUrl%3D%252F%253Flanguage%253Den_US%2526currency%253DCLP%26ref_%3Dtopnav_lang_ais" CVScreenId="7206ccd9-511a-4a82-83fd-25563544abeb" CvElementArea="238, 939, 108, 35" CvTextArea="251, 949, 82, 16" CvTextArgument="Save Changes" CvType="Button" DesignTimeRectangle="241, 942, 102, 29" DesignTimeScaleFactor="1" ElementType="Button" FuzzySelectorArgument="&lt;webctrl aria-labelledby='icp-save-button-announce' tag='INPUT' type='submit' class='a-button-input' aaname='' /&gt;" Guid="ac7af755-07a6-40b3-9bc9-96aea33e9997" InformativeScreenshot="0ec81ef6584d3a529235161703698df6.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Change Language &amp;amp; Currency Settings' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive" />
+                                    </uix:NClick.Target>
+                                    <uix:NClick.VerifyOptions>
+                                      <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
+                                        <uix:VerifyExecutionOptions.Retry>
+                                          <InArgument x:TypeArguments="x:Boolean" />
+                                        </uix:VerifyExecutionOptions.Retry>
+                                        <uix:VerifyExecutionOptions.Timeout>
+                                          <InArgument x:TypeArguments="x:Double" />
+                                        </uix:VerifyExecutionOptions.Timeout>
+                                      </uix:VerifyExecutionOptions>
+                                    </uix:NClick.VerifyOptions>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </uix:NClick>
+                                  <ui:LogMessage DisplayName="Idioma y Moneda verificados" sap:VirtualizedContainerService.HintSize="450,48" sap2010:WorkflowViewState.IdRef="LogMessage_15" Level="Info" Message="[&quot;Idioma y tipo de moneda configurados correctamente&quot;]">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -252,34 +892,48 @@
                                       </scg:Dictionary>
                                     </sap:WorkflowViewStateService.ViewState>
                                   </ui:LogMessage>
-                                  <uix:NNavigateBrowser Action="Refresh" DisplayName="F5 en web" sap:VirtualizedContainerService.HintSize="382,114" sap2010:WorkflowViewState.IdRef="NNavigateBrowser_1" Version="V4" />
-                                  <ui:WaitUiElementAppear WaitActive="{x:Null}" WaitVisible="{x:Null}" ContinueOnError="True" DisplayName="Busca campo URL" FoundElement="[ElementoEncontrado]" sap:VirtualizedContainerService.HintSize="382,130" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_4">
-                                    <ui:WaitUiElementAppear.Target>
-                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7bc23151-5421-4970-9c82-374ef0a4f3e5" InformativeScreenshot="5ae9cdc2f16fad735ab1f97d9c8b23b0" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Google - Google Chrome' /&gt;&lt;ctrl name='Google - Google Chrome' role='pane' /&gt;&lt;ctrl name='Barra de direcciones y de búsqueda ' role='editable text' /&gt;" TimeoutMS="[TimeOut_M]">
-                                        <ui:Target.WaitForReady>
-                                          <InArgument x:TypeArguments="ui:WaitForReady" />
-                                        </ui:Target.WaitForReady>
-                                      </ui:Target>
-                                    </ui:WaitUiElementAppear.Target>
-                                    <sap:WorkflowViewStateService.ViewState>
-                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                                      </scg:Dictionary>
-                                    </sap:WorkflowViewStateService.ViewState>
-                                  </ui:WaitUiElementAppear>
                                 </Sequence>
-                              </ActivityAction>
-                            </ui:RetryScope.ActivityBody>
-                            <ui:RetryScope.Condition>
-                              <ActivityFunc x:TypeArguments="x:Boolean">
-                                <ui:CheckTrue ErrorMessage="{x:Null}" DisplayName="Check True" Expression="[ElementoEncontrado IsNot Nothing]" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="CheckTrue_1" />
-                              </ActivityFunc>
-                            </ui:RetryScope.Condition>
-                          </ui:RetryScope>
+                              </Sequence>
+                            </If.Else>
+                          </If>
                         </Sequence>
-                      </If.Else>
-                    </If>
+                      </uix:NCheckState.IfExists>
+                      <uix:NCheckState.IfNotExists>
+                        <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="450,167" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:LogMessage DisplayName="Elemento no encontrado" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[&quot;No se ha encontrado el elemento necesario para la lectura del idioma en el cual esta en amazon&quot;]">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:LogMessage>
+                          <Throw Exception="[new Exception(&quot;Error al intentar buscar el idioma en el cual se encuentra amazon&quot;)]" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="Throw_2">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Throw>
+                        </Sequence>
+                      </uix:NCheckState.IfNotExists>
+                      <uix:NCheckState.Target>
+                        <uix:TargetAnchorable BrowserURL="https://www.amazon.com/-/es/" CVScreenId="c64a114f-72f8-45d8-bb45-da6c87769f41" CvTextArea="1550, 208, 17, 13" CvTextArgument="EN" CvType="Text" DesignTimeRectangle="1512, 186, 74, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl id='icp-nav-flyout' tag='A' /&gt;" Guid="62fd9a7f-caca-462d-927b-a1a9600edfcf" InformativeScreenshot="0ad832f93abd545ab58d7713d6eb6669.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Amazon.com. Spend less. Smile more.' /&gt;" SearchSteps="Selector, CV" Version="V4" Visibility="Interactive" />
+                      </uix:NCheckState.Target>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </uix:NCheckState>
                   </Sequence>
                 </Sequence>
               </ActivityAction>
@@ -295,7 +949,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </uix:NApplicationCard>
-          <ui:LogMessage DisplayName="Fin Secuencia" sap:VirtualizedContainerService.HintSize="628,48" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Trace" Message="[&quot;WorkFlow InitAllAplication ejecutado correctamente&quot;]">
+          <ui:LogMessage DisplayName="Fin Secuencia" sap:VirtualizedContainerService.HintSize="1696,48" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Trace" Message="[&quot;WorkFlow InitAllAplication ejecutado correctamente&quot;]">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -306,7 +960,7 @@
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="666,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="1734,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -317,16 +971,16 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence sap:VirtualizedContainerService.HintSize="416,230" sap2010:WorkflowViewState.IdRef="Sequence_22">
+            <Sequence sap:VirtualizedContainerService.HintSize="416,346" sap2010:WorkflowViewState.IdRef="Sequence_22">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:LogMessage DisplayName="Error" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="LogMessage_5" Message="[&quot;No se ha logrado ejecutar correctamente el workFlow initAllapplicattions :&quot;+Environment.NewLine()+&#xA;&quot;Descripcion del error&quot;+Environment.NewLine+&#xA;exception.Message]">
+              <ui:LogMessage DisplayName="Error" sap:VirtualizedContainerService.HintSize="382,173" sap2010:WorkflowViewState.IdRef="LogMessage_5" Message="[&quot;No se ha logrado ejecutar correctamente el workFlow initAllapplicattions :&quot;+Environment.NewLine()+&#xA;&quot;Descripcion del error&quot;+Environment.NewLine+&#xA;exception.Message]">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
