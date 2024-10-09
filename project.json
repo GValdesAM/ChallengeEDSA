@@ -6,6 +6,7 @@
   "dependencies": {
     "UiPath.Excel.Activities": "[2.24.1]",
     "UiPath.IntegrationService.Activities": "[1.8.0]",
+    "UiPath.MicrosoftOffice365.Activities": "[2.7.22]",
     "UiPath.System.Activities": "[24.11.0-preview]",
     "UiPath.Testing.Activities": "[24.10.2-preview]",
     "UiPath.UIAutomation.Activities": "[24.11.1-preview]"
@@ -100,6 +101,12 @@
     {
       "filePath": "Framework\\Process.xaml",
       "uniqueId": "b4289f80-5d79-4830-9e5d-f62dd0e5f35a",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "Process\\Registrarvalores.xaml",
+      "uniqueId": "dc7fb30e-bc0a-42dd-8118-d8975a74c118",
       "input": [],
       "output": []
     }

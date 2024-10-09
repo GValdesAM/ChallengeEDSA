@@ -1,7 +1,8 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ObtenciondeDatos_CargaOrquestador" this:ObtenciondeDatos_CargaOrquestador.In_RutaInput="C:\Users\Red\Documents\UiPath\ChallengeEDSA\Data\Input\datos_buscar.xlsx" this:ObtenciondeDatos_CargaOrquestador.In_NombreColaTrabajo="ProcessABCQueue" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ObtenciondeDatos_CargaOrquestador" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="In_RutaInput" Type="InArgument(x:String)" />
     <x:Property Name="In_NombreColaTrabajo" Type="InArgument(x:String)" />
+    <x:Property Name="In_RutaFoto" Type="InArgument(x:String)" />
   </x:Members>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
@@ -40,6 +41,9 @@
       <x:String>System.Activities.Runtime.Collections</x:String>
       <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>UiPath.Shared.Activities.Business</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.Platform.SyncObjects</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -106,15 +110,17 @@
       <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
       <AssemblyReference>System.Data.SqlClient</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1637,1706" sap2010:WorkflowViewState.IdRef="Sequence_36">
+  <Sequence sap:VirtualizedContainerService.HintSize="1635,1387" sap2010:WorkflowViewState.IdRef="Sequence_36">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap2010:Annotation.AnnotationText="Secuencia en el cual ya obtenida la ruta del archivo input se obtendran la totalidad de las filas  y se cargaran a la cola de trabajo" DisplayName="Obtencion de datos INPUT" sap:VirtualizedContainerService.HintSize="556,1683" sap2010:WorkflowViewState.IdRef="Sequence_35">
+    <Sequence sap2010:Annotation.AnnotationText="Secuencia en el cual ya obtenida la ruta del archivo input se obtendran la totalidad de las filas  y se cargaran a la cola de trabajo" DisplayName="Obtencion de datos INPUT" sap:VirtualizedContainerService.HintSize="490,1364" sap2010:WorkflowViewState.IdRef="Sequence_35">
       <Sequence.Variables>
         <Variable x:TypeArguments="sd:DataTable" Name="DT_InpuData" />
         <Variable x:TypeArguments="x:Boolean" Name="ExisteArchivo" />
@@ -125,7 +131,7 @@
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:LogMessage DisplayName="Inicio secuencia" sap:VirtualizedContainerService.HintSize="522,57" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;Comienza secuencia para extraer los datos desde el archivo input&quot;]">
+      <ui:LogMessage DisplayName="Inicio secuencia" sap:VirtualizedContainerService.HintSize="456,57" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;Comienza secuencia para extraer los datos desde el archivo input&quot;]">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -133,14 +139,14 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:LogMessage>
-      <ui:FileExistsX sap2010:Annotation.AnnotationText="Se verifica en primera instancia si existe el archivo input necesario apra su carga de trabajo en caso que no existiese se dara por terminado el procesamiento" DisplayName="Verifica existencia input" Exists="[ExisteArchivo]" sap:VirtualizedContainerService.HintSize="522,222" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[In_RutaInput]">
+      <ui:FileExistsX sap2010:Annotation.AnnotationText="Se verifica en primera instancia si existe el archivo input necesario apra su carga de trabajo en caso que no existiese se dara por terminado el procesamiento" DisplayName="Verifica existencia input" Exists="[ExisteArchivo]" sap:VirtualizedContainerService.HintSize="456,222" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[In_RutaInput]">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:FileExistsX>
-      <If sap2010:Annotation.AnnotationText="Si existe el archivo se continuara el procesamiento en extraccion caso contrario se excepcionara el proceso" Condition="[ExisteArchivo=True]" DisplayName="Valor True?" sap:VirtualizedContainerService.HintSize="522,129" sap2010:WorkflowViewState.IdRef="If_1">
+      <If sap2010:Annotation.AnnotationText="Si existe el archivo se continuara el procesamiento en extraccion caso contrario se excepcionara el proceso" Condition="[ExisteArchivo=True]" DisplayName="Valor True?" sap:VirtualizedContainerService.HintSize="456,129" sap2010:WorkflowViewState.IdRef="If_1">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -191,7 +197,7 @@
           </Sequence>
         </If.Else>
       </If>
-      <TryCatch sap2010:Annotation.AnnotationText="Este Try Catch se encargara de obtener la tabla de datos que se utilizaran en el proceso en caso que se obtenga algun error de cualquier tipo " DisplayName="Intenta Obtener Datos" sap:VirtualizedContainerService.HintSize="522,1150" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch sap2010:Annotation.AnnotationText="Este Try Catch se encargara de obtener la tabla de datos que se utilizaran en el proceso en caso que se obtenga algun error de cualquier tipo " DisplayName="Intenta Obtener Datos" sap:VirtualizedContainerService.HintSize="456,831" sap2010:WorkflowViewState.IdRef="TryCatch_1">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -265,10 +271,10 @@
           </Sequence>
         </TryCatch.Try>
         <TryCatch.Catches>
-          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="488,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="422,604" sap2010:WorkflowViewState.IdRef="Catch`1_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
@@ -276,7 +282,10 @@
               <ActivityAction.Argument>
                 <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
               </ActivityAction.Argument>
-              <Sequence sap:VirtualizedContainerService.HintSize="416,245" sap2010:WorkflowViewState.IdRef="Sequence_41">
+              <Sequence sap:VirtualizedContainerService.HintSize="416,534" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="ui:Image" Name="Foto" />
+                </Sequence.Variables>
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -290,6 +299,19 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                 </ui:LogMessage>
+                <ui:TakeScreenshot WaitBefore="{x:Null}" ContinueOnError="True" DisplayName="Toma Captura" sap:VirtualizedContainerService.HintSize="382,139" sap2010:WorkflowViewState.IdRef="TakeScreenshot_1" Screenshot="[Foto]">
+                  <ui:TakeScreenshot.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="a24decd8-85ac-43c5-bc43-4b9f369026eb" InformativeScreenshot="f1658e98f80b0aa469efcbe624f19fc6" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='*' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:TakeScreenshot.Target>
+                </ui:TakeScreenshot>
+                <ui:SaveImage ContinueOnError="True" DisplayName="Guarda imagen" FileName="[In_RutaFoto]" sap:VirtualizedContainerService.HintSize="382,165" sap2010:WorkflowViewState.IdRef="SaveImage_1" Image="[Foto]" />
                 <Throw Exception="[New Exception(&quot;Error al intentar obtener los datos desde el archivo input y cargar los datos al orquestados &quot;+exception.Message)]" sap:VirtualizedContainerService.HintSize="382,113" sap2010:WorkflowViewState.IdRef="Throw_1" />
               </Sequence>
             </ActivityAction>
