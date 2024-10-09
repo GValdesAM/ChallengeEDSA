@@ -128,7 +128,7 @@
       <AssemblyReference>UiPath.CV.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="1698,3562" sap2010:WorkflowViewState.IdRef="Sequence_6">
+  <Sequence sap:VirtualizedContainerService.HintSize="1698,3676" sap2010:WorkflowViewState.IdRef="Sequence_6">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -142,7 +142,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:LogMessage>
-    <TryCatch sap2010:Annotation.AnnotationText="En esta instancia se direccionara con la URL del producto con el fin de obtener el Precio y tambien si posee envio gratis" DisplayName="Intenta obtener datos desde web" sap:VirtualizedContainerService.HintSize="642,3434" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch sap2010:Annotation.AnnotationText="En esta instancia se direccionara con la URL del producto con el fin de obtener el Precio y tambien si posee envio gratis" DisplayName="Intenta obtener datos desde web" sap:VirtualizedContainerService.HintSize="642,3548" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Variables>
         <Variable x:TypeArguments="x:String" Name="URL_Navegacion" />
         <Variable x:TypeArguments="x:Int32" Name="TimeOut_M" />
@@ -153,7 +153,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <TryCatch.Try>
-        <Sequence DisplayName="Obten Valores necesarios desde WEB" sap:VirtualizedContainerService.HintSize="604,3132" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence DisplayName="Obten Valores necesarios desde WEB" sap:VirtualizedContainerService.HintSize="604,3246" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -179,13 +179,13 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </ui:MultipleAssign>
-          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Amazon.com.'" sap:VirtualizedContainerService.HintSize="570,1695" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="238739538b140b632a9e4678274b3423" Selector="&lt;html app='chrome.exe' title='*' /&gt;">
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Amazon.com.'" sap:VirtualizedContainerService.HintSize="570,1809" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="238739538b140b632a9e4678274b3423" Selector="&lt;html app='chrome.exe' title='*' /&gt;">
             <ui:BrowserScope.Body>
               <ActivityAction x:TypeArguments="x:Object">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
                 </ActivityAction.Argument>
-                <Sequence sap2010:Annotation.AnnotationText="Se extraen los valores de precio y si posee envio" DisplayName="Do" sap:VirtualizedContainerService.HintSize="536,1476" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                <Sequence sap2010:Annotation.AnnotationText="Se extraen los valores de precio y si posee envio" DisplayName="Do" sap:VirtualizedContainerService.HintSize="536,1590" sap2010:WorkflowViewState.IdRef="Sequence_12">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="ElementExists" />
                   </Sequence.Variables>
@@ -202,7 +202,7 @@
                       <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0f29f1a4-6f49-4743-84c6-e7243f6be7fa" InformativeScreenshot="4306defa16b668a5080865d60acdb489" Selector="&lt;webctrl class='a-price-whole' parentid='corePrice*_feature_div' tag='SPAN' aaname='*' /&gt;" TimeoutMS="[TimeOut_M]" WaitForReady="COMPLETE" />
                     </ui:UiElementExists.Target>
                   </ui:UiElementExists>
-                  <If Condition="[ElementExists]" DisplayName="Verifica si existe el precio del producto" sap:VirtualizedContainerService.HintSize="502,698" sap2010:WorkflowViewState.IdRef="If_4">
+                  <If Condition="[ElementExists]" DisplayName="Verifica si existe el precio del producto" sap:VirtualizedContainerService.HintSize="502,812" sap2010:WorkflowViewState.IdRef="If_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -239,14 +239,17 @@
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,224" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,338" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="ui:Image" Name="Screenshot" />
+                        </Sequence.Variables>
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             <x:Boolean x:Key="IsPinned">False</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:LogMessage DisplayName="Error" sap:VirtualizedContainerService.HintSize="382,164" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Warn" Message="[&quot;No se ha logrado obtener el precio del producto o el producto no esta disponible&quot;]">
+                        <ui:LogMessage DisplayName="Error" sap:VirtualizedContainerService.HintSize="382,173" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Warn" Message="[&quot;No se ha logrado obtener el precio del producto o el producto no esta disponible&quot;]">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -254,6 +257,32 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                         </ui:LogMessage>
+                        <ui:TakeScreenshot WaitBefore="{x:Null}" ContinueOnError="True" DisplayName="Captura pantalla" sap:VirtualizedContainerService.HintSize="382,57" sap2010:WorkflowViewState.IdRef="TakeScreenshot_1" Screenshot="[Screenshot]">
+                          <ui:TakeScreenshot.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="b7077186-9456-4224-8e1c-3701501c6d68" InformativeScreenshot="4e05e29ffbda0fd33f9b258cc11722aa">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:TakeScreenshot.Target>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:TakeScreenshot>
+                        <ui:SaveImage ContinueOnError="True" DisplayName="Guarda Imagen" FileName="[In_Ruta_Foto]" sap:VirtualizedContainerService.HintSize="382,48" sap2010:WorkflowViewState.IdRef="SaveImage_1" Image="[Screenshot]">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </ui:SaveImage>
                       </Sequence>
                     </If.Else>
                   </If>

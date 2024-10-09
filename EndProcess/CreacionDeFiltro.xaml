@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="CreacionDeFiltro" this:CreacionDeFiltro.In_Ruta_Archivo_Output="C:\Users\Red\Documents\UiPath\ChallengeEDSA\Data\Output\output_datos_buscar.xlsx" this:CreacionDeFiltro.In_Filtro_Menor="10000" this:CreacionDeFiltro.In_Filtro_Mayor="50000" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="CreacionDeFiltro" this:CreacionDeFiltro.In_Ruta_Archivo_Output="C:\Users\Red\Documents\UiPath\ChallengeEDSA\Data\Output\output_datos_buscar.xlsx" this:CreacionDeFiltro.In_Filtro_Menor="45000" this:CreacionDeFiltro.In_Filtro_Mayor="10000" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="In_Ruta_Archivo_Output" Type="InArgument(x:String)" />
     <x:Property Name="In_Filtro_Menor" Type="InArgument(x:Int32)" />
@@ -47,6 +47,7 @@
       <x:String>UiPath.Excel.Activities.Business.Filter</x:String>
       <x:String>UiPath.Excel.Activities.Business</x:String>
       <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Shared.Activities.Business</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -108,15 +109,16 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.MicrosoftOffice365.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="CreacionDeFiltro" sap:VirtualizedContainerService.HintSize="1590,2545" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="CreacionDeFiltro" sap:VirtualizedContainerService.HintSize="1690,2569" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch sap2010:Annotation.AnnotationText="En esta instancia se hara un filtro de precios de los productos desde valor x hasta valor y&#xD;&#xA;esos valores se pueden modificar desde el archivo config una vez hecho el filtro se creara una nueva pestaña con los productos filtrados" DisplayName="Intenta crear la pestaña con los productos filtrados" sap:VirtualizedContainerService.HintSize="590,2522" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch sap2010:Annotation.AnnotationText="En esta instancia se hara un filtro de precios de los productos desde valor x hasta valor y&#xD;&#xA;esos valores se pueden modificar desde el archivo config una vez hecho el filtro se creara una nueva pestaña con los productos filtrados" DisplayName="Intenta crear la pestaña con los productos filtrados" sap:VirtualizedContainerService.HintSize="590,2546" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -125,10 +127,11 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <TryCatch.Try>
-        <Sequence DisplayName="Crea pestaña con filtros" sap:VirtualizedContainerService.HintSize="552,2214" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Crea pestaña con filtros" sap:VirtualizedContainerService.HintSize="552,2238" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <Sequence.Variables>
             <Variable x:TypeArguments="sd:DataTable" Name="DT_Filtrado" />
             <Variable x:TypeArguments="sd:DataTable" Name="DT_Datos_Output_Existentes" />
+            <Variable x:TypeArguments="sd:DataRow[]" Name="ElementoABorrar" />
           </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -217,20 +220,60 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </ui:ForEachRow>
-          <Assign sap2010:Annotation.AnnotationText="Se realiza el filtro por precio" sap:VirtualizedContainerService.HintSize="518,145" sap2010:WorkflowViewState.IdRef="Assign_3">
+          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="518,57" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="468,196" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap2010:Annotation.AnnotationText="Se realiza el filtro por precio" sap:VirtualizedContainerService.HintSize="434,136" sap2010:WorkflowViewState.IdRef="Assign_5">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="sd:DataTable">[DT_Filtrado]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="sd:DataTable">[DT_Filtrado.Select("[Precio]&lt;"+In_Filtro_Menor.ToString+" AND [Precio]&gt;"+In_Filtro_Mayor.ToString).CopyToDataTable]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+              </Sequence>
+            </ui:CommentOut.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:CommentOut>
+          <Assign sap:VirtualizedContainerService.HintSize="518,114" sap2010:WorkflowViewState.IdRef="Assign_7">
             <Assign.To>
               <OutArgument x:TypeArguments="sd:DataTable">[DT_Filtrado]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="sd:DataTable">[DT_Filtrado.Select("[Precio]&lt;"+In_Filtro_Mayor.ToString+" AND [Precio]&gt;"+In_Filtro_Menor.ToString+"").CopyToDataTable]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable">[DT_Filtrado.AsEnumerable().Where(Function(row) CDec(row("Precio")) &gt; CDec(In_Filtro_Mayor)).CopyToDataTable()]</InArgument>
             </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="518,114" sap2010:WorkflowViewState.IdRef="Assign_6">
+            <Assign.To>
+              <OutArgument x:TypeArguments="sd:DataTable">[DT_Filtrado]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="sd:DataTable">[DT_Filtrado.AsEnumerable().Where(Function(row) CDec(row("Precio")) &lt; CDec(In_Filtro_Menor)).CopyToDataTable()]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:LogMessage DisplayName="Filtrado completo" sap:VirtualizedContainerService.HintSize="518,57" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Filtro de precios completados&quot;]">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-          </Assign>
-          <ui:LogMessage DisplayName="Filtrado completo" sap:VirtualizedContainerService.HintSize="518,173" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Filtro de precios completados&quot;]" />
+          </ui:LogMessage>
           <ui:RemoveDataColumn Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="URL" DataTable="[DT_Filtrado]" DisplayName="Remove Data Column" sap:VirtualizedContainerService.HintSize="518,218" sap2010:WorkflowViewState.IdRef="RemoveDataColumn_3" />
           <ui:RemoveDataColumn Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="Free Delivery" DataTable="[DT_Filtrado]" DisplayName="Remove Data Column" sap:VirtualizedContainerService.HintSize="518,218" sap2010:WorkflowViewState.IdRef="RemoveDataColumn_4" />
           <ui:WriteRange StartingCell="{x:Null}" AddHeaders="True" DataTable="[DT_Filtrado]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="518,148" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Productos Filtrados" WorkbookPath="[In_Ruta_Archivo_Output]" />

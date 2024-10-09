@@ -121,7 +121,7 @@
       <AssemblyReference>System.Linq.Async</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Fase de Process sera la extraccion de los datos desde la web ,una vez obtenido el Precio y si posee envio quedara registrado en un excel" DisplayName="Process" sap:VirtualizedContainerService.HintSize="1698,1558" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Fase de Process sera la extraccion de los datos desde la web ,una vez obtenido el Precio y si posee envio quedara registrado en un excel" DisplayName="Process" sap:VirtualizedContainerService.HintSize="1690,1558" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="Precio" />
       <Variable x:TypeArguments="x:String" Name="Envio" />
